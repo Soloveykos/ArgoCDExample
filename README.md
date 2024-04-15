@@ -24,4 +24,7 @@ echo TXZhOGRIaWI3WTVnLXlyRg== | base64 --decode
 ```
 kubectl apply -f application.yaml
 ```
-## See synced project
+4. See synced project in 127.0.0.1:8080 you can find it.
+
+## Test automatic sync
+change deployment.yaml
