@@ -1,0 +1,31 @@
+# Make sure the configuration corresponds to documentation
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp-argo-application
+  namespace: argocd
+spec:
+  project: default # we can group multiple projects here
+
+  source: 
+    repoURL: https://github.com/Soloveykos/ArgoCDExample.git
+    targetRevision: HEAD
+    path: dev # to be able to sync the repo with ArgoCD
+  destination:
+    server: https://kubernetes.default.svc # internal service name for k8s api server (command kubectl get svc)
+    namespace: myapp # need to configure if this myapp namespace not exist (see below)
+
+# sync the creation of the namespace.
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+# enable syncronization because it's not automatically enabled
+    automated:
+      # undo or override with the git repository state:
+      selfHeal: true
+
+      # if we rename component or deleted service.yaml - we should delete it in the cluster also:
+      prune: true
+      
+      # default regularly automatic sync checks every 3 mins
