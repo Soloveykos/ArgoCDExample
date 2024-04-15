@@ -20,3 +20,8 @@ echo TXZhOGRIaWI3WTVnLXlyRg== | base64 --decode
 ## Configure ArgoCD
 1. create application.yaml and make sure that it corresponds to [documentation](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/)
 2. create namespace 'myapp' in k8s
+3. ArgoCD doesn't know anything about our repository so to apply configuration do:
+```
+kubectl apply -f application.yaml
+```
+## See synced project
